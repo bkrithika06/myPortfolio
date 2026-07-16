@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krithika B — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:   #F5EFE3;
+    --paper:   #FFFCF5;
+    --ink:     #221F1B;
+    --ink-60:  rgba(34,31,27,0.62);
+    --ink-40:  rgba(34,31,27,0.4);
+    --sage:    #78896A;
+    --rose:    #C97B84;
+    --mustard: #D2A22B;
+    --plum:    #6E4C5E;
+    --line:    rgba(34,31,27,0.14);
+    --shadow:  0 18px 34px -20px rgba(34,31,27,0.35);
+    --shadow-sm: 0 8px 18px -10px rgba(34,31,27,0.28);
+    --radius:  3px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* paper grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:1;
+    opacity:.5;
+    background-image:
+      radial-gradient(rgba(34,31,27,0.035) 1px, transparent 1px);
+    background-size:3px 3px;
+  }
+
+  ::selection{ background:var(--mustard); color:var(--ink); }
+
+  a{ color:inherit; }
+
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-60);
+  }
+
+  h1,h2,h3{ margin:0; font-family:'Fraunces',serif; font-weight:600; }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 40px;
+    position:relative;
+    z-index:2;
+  }
+
+  section{ padding:120px 0; position:relative; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 40px;
+    mix-blend-mode:normal;
+  }
+  nav .nav-inner{
+    max-width:1180px; margin:0 auto; width:100%;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+    font-size:20px; letter-spacing:.01em;
+  }
+  .nav-links{ display:flex; gap:34px; }
+  .nav-links a{
+    text-decoration:none; font-size:13px; font-weight:600;
+    letter-spacing:.03em; color:var(--ink);
+    position:relative; padding-bottom:3px;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background:var(--mustard); transition:width .3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  /* ---------- pin / tape decorations ---------- */
+  .pin{
+    position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    width:14px; height:14px; border-radius:50%;
+    box-shadow: inset -2px -2px 3px rgba(0,0,0,.25), 0 3px 6px rgba(0,0,0,.3);
+    z-index:3;
+  }
+  .tape{
+    position:absolute; width:66px; height:24px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(255,255,255,0.7);
+    box-shadow:0 3px 8px rgba(34,31,27,0.12);
+    opacity:.9;
+  }
+
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-sm);
+    position:relative;
+  }
+
+  .tag{
+    display:inline-flex; align-items:center;
+    font-family:'Space Mono',monospace;
+    font-size:11.5px;
+    padding:5px 10px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    color:var(--ink-60);
+    background:var(--paper);
+    white-space:nowrap;
+  }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-top:120px; padding-bottom:60px;
+  }
+  .hero-top{
+    display:grid; grid-template-columns:1.35fr .95fr; gap:56px; align-items:center;
+  }
+  .hero-eyebrow{ margin-bottom:22px; display:flex; align-items:center; gap:10px;}
+  .hero-eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--sage); }
+
+  .hero h1{
+    font-size:clamp(58px, 8vw, 108px);
+    line-height:.96;
+    letter-spacing:-.01em;
+  }
+  .hero h1 em{
+    font-style:italic; font-weight:500; color:var(--plum);
+    display:block;
+  }
+
+  .hero-sub{
+    margin-top:26px; max-width:480px;
+    font-size:17px; line-height:1.65; color:var(--ink-60);
+  }
+
+  .hero-cta{ margin-top:36px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Space Mono',monospace; font-size:13px; font-weight:700;
+    padding:13px 22px; border-radius:30px;
+    text-decoration:none; letter-spacing:.02em;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-solid{ background:var(--ink); color:var(--paper); box-shadow:var(--shadow-sm); }
+  .btn-solid:hover{ transform:translateY(-3px); box-shadow:var(--shadow); }
+  .btn-line{ border:1.5px solid var(--ink); color:var(--ink); }
+  .btn-line:hover{ transform:translateY(-3px); background:var(--ink); color:var(--paper); }
+
+  /* hero pinned note card */
+  .note-card{
+    padding:30px 28px;
+    transform:rotate(3.2deg);
+    max-width:360px;
+    justify-self:end;
+  }
+  .note-card .pin{ background:var(--rose); }
+  .note-card p{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:400;
+    font-size:19px; line-height:1.5; margin:14px 0 0;
+    color:var(--ink);
+  }
+  .note-card .sig{
+    margin-top:18px; font-family:'Space Mono',monospace; font-size:11px;
+    color:var(--ink-60); letter-spacing:.05em;
+  }
+
+  .hero-strip{
+    margin-top:70px; display:flex; gap:0; flex-wrap:wrap;
+    border-top:1px solid var(--line); padding-top:22px;
+  }
+  .hero-strip .stat{
+    flex:1; min-width:150px; padding-right:24px;
+  }
+  .hero-strip .stat b{
+    font-family:'Fraunces',serif; font-size:30px; font-weight:600; display:block;
+  }
+  .hero-strip .stat span{ font-size:12.5px; color:var(--ink-60); }
+
+  /* ---------- SECTION HEAD ---------- */
+  .sec-head{ margin-bottom:56px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  .sec-head h2{ font-size:clamp(36px,4vw,54px); letter-spacing:-.01em; }
+  .sec-head .num{ font-family:'Space Mono',monospace; font-size:13px; color:var(--ink-40); }
+
+  /* ---------- ABOUT / EDUCATION ---------- */
+  .about-grid{ display:grid; grid-template-columns:.95fr 1.35fr; gap:48px; align-items:start; }
+  .edu-card{ padding:34px; transform:rotate(-1.4deg); }
+  .edu-card .pin{ background:var(--mustard); }
+  .edu-card h3{ font-size:23px; font-weight:600; margin-bottom:4px; }
+  .edu-card .school{ color:var(--ink-60); font-size:14.5px; margin-bottom:18px; }
+  .cgpa-row{ display:flex; align-items:baseline; gap:10px; margin:18px 0 22px; }
+  .cgpa-row b{ font-family:'Fraunces',serif; font-size:44px; font-weight:600; color:var(--sage); }
+  .cgpa-row span{ font-size:13px; color:var(--ink-60); }
+  .course-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+
+  .about-copy p{ font-size:18px; line-height:1.8; color:var(--ink); margin:0 0 20px; }
+  .about-copy p:last-child{ margin-bottom:0; }
+  .about-copy strong{ font-weight:600; }
+
+  /* ---------- SKILLS MOODBOARD ---------- */
+  .skills-board{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:26px;
+  }
+  .skill-card{
+    padding:26px 22px 24px;
+  }
+  .skill-card:nth-child(1){ transform:rotate(-2deg); }
+  .skill-card:nth-child(2){ transform:rotate(1.6deg); margin-top:26px;}
+  .skill-card:nth-child(3){ transform:rotate(-1.2deg); }
+  .skill-card:nth-child(4){ transform:rotate(2deg); margin-top:26px;}
+  .skill-card .pin:nth-of-type(1){ }
+  .skill-card h3{ font-size:16px; font-weight:700; font-family:'Inter',sans-serif; letter-spacing:.01em; margin-bottom:14px; }
+  .skill-card .items{ display:flex; flex-wrap:wrap; gap:7px; }
+  .skill-card .items span{
+    font-size:12.5px; font-family:'Space Mono',monospace;
+    color:var(--ink-60);
+  }
+  .skill-card .items span:not(:last-child)::after{ content:"·"; margin-left:7px; color:var(--ink-40); }
+
+  .skill-card.c1 .pin{ background:var(--sage); }
+  .skill-card.c2 .pin{ background:var(--rose); }
+  .skill-card.c3 .pin{ background:var(--plum); }
+  .skill-card.c4 .pin{ background:var(--mustard); }
+
+  /* ---------- PROJECTS MASONRY ---------- */
+  .proj-board{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:26px;
+  }
+  .proj-card{
+    grid-column:span 3;
+    padding:30px 28px 26px;
+    display:flex; flex-direction:column;
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .proj-card:hover{ transform:translateY(-6px) !important; box-shadow:var(--shadow); }
+  .proj-card:nth-child(1){ transform:rotate(-1.2deg); grid-column:span 4; }
+  .proj-card:nth-child(2){ transform:rotate(1.5deg); grid-column:span 2; }
+  .proj-card:nth-child(3){ transform:rotate(-0.8deg); grid-column:span 6; }
+
+  .proj-num{ font-family:'Space Mono',monospace; font-size:12px; color:var(--ink-40); margin-bottom:14px; }
+  .proj-card h3{ font-size:25px; font-weight:600; line-height:1.2; margin-bottom:10px; }
+  .proj-card .desc{ font-size:14.5px; line-height:1.65; color:var(--ink-60); margin-bottom:20px; flex:1; }
+  .proj-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px; }
+  .proj-link{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700;
+    text-decoration:none; color:var(--ink); align-self:flex-start;
+    border-bottom:1.5px solid var(--ink); padding-bottom:2px;
+  }
+  .proj-link svg{ width:11px; height:11px; transition:transform .25s ease; }
+  .proj-link:hover svg{ transform:translate(2px,-2px); }
+  .proj-card:nth-child(1) .pin{ background:var(--rose); }
+  .proj-card:nth-child(2) .pin{ background:var(--sage); }
+  .proj-card:nth-child(3) .pin{ background:var(--mustard); }
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-list{ display:flex; flex-direction:column; gap:0; }
+  .exp-row{
+    display:grid; grid-template-columns:220px 1fr; gap:40px;
+    padding:34px 0; border-top:1px solid var(--line);
+  }
+  .exp-list .exp-row:last-child{ border-bottom:1px solid var(--line); }
+  .exp-period{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--ink-60); padding-top:4px;}
+  .exp-role h3{ font-size:24px; font-weight:600; margin-bottom:4px; }
+  .exp-org{ font-size:14px; color:var(--plum); font-weight:600; margin-bottom:14px; font-family:'Inter',sans-serif;}
+  .exp-bullets{ margin:0; padding-left:18px; color:var(--ink-60); font-size:14.5px; line-height:1.8; }
+  .exp-bullets li{ margin-bottom:4px; }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .achv-strip{
+    display:flex; flex-wrap:wrap; gap:18px;
+  }
+  .achv-chip{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 20px;
+    background:var(--paper); border:1px solid var(--line); border-radius:40px;
+    box-shadow:var(--shadow-sm);
+  }
+  .achv-chip .medal{
+    width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0;
+    background:linear-gradient(145deg, var(--mustard), #b9871e);
+    color:var(--paper); font-weight:700; font-family:'Space Mono',monospace;
+  }
+  .achv-chip .txt b{ display:block; font-size:14px; font-weight:600; }
+  .achv-chip .txt span{ font-size:12px; color:var(--ink-60); }
+
+  /* ---------- CONTACT ---------- */
+  .contact-sec{ text-align:center; }
+  .contact-sec h2{
+    font-size:clamp(42px,7vw,88px); line-height:1.02; letter-spacing:-.01em;
+    max-width:820px; margin:0 auto;
+  }
+  .contact-sec h2 em{ font-style:italic; color:var(--plum); }
+  .contact-sec .hero-sub{ margin:26px auto 0; text-align:center; }
+  .contact-links{
+    margin-top:48px; display:flex; justify-content:center; gap:18px; flex-wrap:wrap;
+  }
+  .clink{
+    display:flex; align-items:center; gap:10px;
+    padding:16px 26px; border:1.5px solid var(--ink); border-radius:40px;
+    text-decoration:none; color:var(--ink); font-weight:600; font-size:14.5px;
+    transition:all .25s ease;
+  }
+  .clink:hover{ background:var(--ink); color:var(--paper); transform:translateY(-3px); }
+  .clink svg{ width:16px; height:16px; }
+
+  footer{
+    padding:36px 0 44px; text-align:center;
+    font-family:'Space Mono',monospace; font-size:12px; color:var(--ink-40);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:920px){
+    .wrap{ padding:0 22px; }
+    section{ padding:80px 0; }
+    .nav-links{ display:none; }
+    .hero-top{ grid-template-columns:1fr; gap:40px; }
+    .note-card{ justify-self:start; max-width:100%; transform:rotate(1.6deg); }
+    .about-grid{ grid-template-columns:1fr; }
+    .skills-board{ grid-template-columns:1fr 1fr; }
+    .skill-card:nth-child(n){ margin-top:0; }
+    .proj-board{ grid-template-columns:1fr; }
+    .proj-card:nth-child(n){ grid-column:span 1 !important; transform:rotate(0) !important; }
+    .exp-row{ grid-template-columns:1fr; gap:8px; }
+  }
+  @media (max-width:560px){
+    .skills-board{ grid-template-columns:1fr; }
+    .hero-strip .stat{ min-width:45%; margin-bottom:18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ transition:none; opacity:1; transform:none; }
+    *{ animation:none !important; }
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--plum); outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark">Krithika B.</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-top">
+      <div>
+        <div class="hero-eyebrow"><span class="dot"></span><span class="eyebrow">AI &amp; Data Science · Class of 2027</span></div>
+        <h1>Krithika<br><em>Balakrishnan</em></h1>
+        <p class="hero-sub">3rd-year AI &amp; Data Science student at Sri Krishna College of Technology, Coimbatore. I build models that learn and products that ship — moving comfortably between notebooks and full-stack code.</p>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#projects">View Projects</a>
+          <a class="btn btn-line" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="card note-card reveal">
+        <div class="pin"></div>
+        <span class="eyebrow">a quick note</span>
+        <p>"I like turning messy data and half-formed ideas into things that actually work — trained models, deployed apps, real users."</p>
+        <div class="sig">— K.B.</div>
+      </div>
+    </div>
+
+    <div class="hero-strip">
+      <div class="stat"><b>8.1</b><span>CGPA / 10</span></div>
+      <div class="stat"><b>4</b><span>Internships completed</span></div>
+      <div class="stat"><b>4+</b><span>Shipped projects</span></div>
+      <div class="stat"><b>5×</b><span>Competition placements</span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT / EDUCATION -->
+  <section id="about">
+    <div class="sec-head reveal">
+      <h2>The<br>Fundamentals</h2>
+      <span class="num">01 — About &amp; Education</span>
+    </div>
+    <div class="about-grid">
+      <div class="card edu-card reveal">
+        <div class="pin"></div>
+        <span class="eyebrow">Education</span>
+        <h3 style="margin-top:10px;">B.Tech, AI &amp; Data Science</h3>
+        <div class="school">Sri Krishna College of Technology, Coimbatore</div>
+        <div class="cgpa-row"><b>8.1</b><span>current CGPA out of 10</span></div>
+        <span class="eyebrow" style="display:block; margin-bottom:10px;">Coursework</span>
+        <div class="course-tags">
+          <span class="tag">Artificial Intelligence</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Deep Learning</span>
+          <span class="tag">Data Science</span>
+          <span class="tag">Cloud Computing</span>
+          <span class="tag">DBMS</span>
+        </div>
+      </div>
+      <div class="about-copy reveal">
+        <p>I'm currently in my third year, splitting my focus between <strong>machine learning fundamentals</strong> and <strong>full-stack engineering</strong> — because I've found the most interesting problems live at the intersection of the two: a model is only as useful as the product that puts it in front of someone.</p>
+        <p>That's shown up in my work so far — from training a deep learning model to catch fraudulent transactions, to shipping a full MERN job portal with real authentication and dashboards, to wiring an AI content assistant into a blogging platform. Alongside coursework, I've completed internships across MERN development, data science, and cybersecurity, each one adding a different lens to how I approach building software.</p>
+        <p>I'm looking for opportunities where I can keep doing exactly that: applying AI thoughtfully, inside products people actually use.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head reveal">
+      <h2>Toolkit &amp;<br>Technologies</h2>
+      <span class="num">02 — Skills</span>
+    </div>
+    <div class="skills-board">
+      <div class="card skill-card c1 reveal">
+        <div class="pin"></div>
+        <h3>Languages</h3>
+        <div class="items"><span>Python</span><span>C++</span><span>JavaScript</span><span>SQL</span></div>
+      </div>
+      <div class="card skill-card c2 reveal">
+        <div class="pin"></div>
+        <h3>AI &amp; Data Science</h3>
+        <div class="items"><span>Machine Learning</span><span>Deep Learning</span><span>TensorFlow</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span></div>
+      </div>
+      <div class="card skill-card c3 reveal">
+        <div class="pin"></div>
+        <h3>Full-Stack</h3>
+        <div class="items"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Tailwind CSS</span><span>REST APIs</span></div>
+      </div>
+      <div class="card skill-card c4 reveal">
+        <div class="pin"></div>
+        <h3>Tools</h3>
+        <div class="items"><span>Git &amp; GitHub</span><span>Figma</span><span>Postman</span><span>MySQL</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-head reveal">
+      <h2>Selected<br>Work</h2>
+      <span class="num">03 — Projects</span>
+    </div>
+    <div class="proj-board">
+
+      <div class="card proj-card reveal">
+        <div class="pin"></div>
+        <div class="proj-num">Full-stack · MERN</div>
+        <h3>CareerConnect</h3>
+        <p class="desc">A full-stack job portal with role-based authentication for employers and candidates, job postings, application management, and responsive dashboards.</p>
+        <div class="proj-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">JWT</span></div>
+        <a class="proj-link" href="https://github.com/bkrithika06/" target="_blank" rel="noopener">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+      </div>
+
+      <div class="card proj-card reveal">
+        <div class="pin"></div>
+        <div class="proj-num">Deep Learning</div>
+        <h3>Fraud Detection</h3>
+        <p class="desc">A neural network to flag fraudulent financial transactions, from preprocessing to feature engineering.</p>
+        <div class="proj-tags"><span class="tag">TensorFlow</span><span class="tag">Keras</span></div>
+        <a class="proj-link" href="https://github.com/bkrithika06/" target="_blank" rel="noopener">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+      </div>
+
+      <div class="card proj-card reveal">
+        <div class="pin"></div>
+        <div class="proj-num">Full-stack · AI-assisted</div>
+        <h3>Thoughts Worth Sharing</h3>
+        <p class="desc">A modern blogging platform with secure authentication, full CRUD, and Gemini-API-assisted content generation to smooth out the writing process for authors.</p>
+        <div class="proj-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Gemini API</span></div>
+        <a class="proj-link" href="https://github.com/bkrithika06/" target="_blank" rel="noopener">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="sec-head reveal">
+      <h2>Where I've<br>Worked</h2>
+      <span class="num">04 — Experience</span>
+    </div>
+    <div class="exp-list">
+      <div class="exp-row reveal">
+        <div class="exp-period">Virtual Internship</div>
+        <div class="exp-role">
+          <h3>MERN Stack Developer Intern</h3>
+          <div class="exp-org">CodeC Technologies</div>
+          <ul class="exp-bullets">
+            <li>Developed responsive full-stack web applications using the MERN stack.</li>
+            <li>Built reusable React components and integrated RESTful APIs.</li>
+            <li>Worked with MongoDB databases and Express.js backend services.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-row reveal">
+        <div class="exp-period">Virtual Internship</div>
+        <div class="exp-role">
+          <h3>Data Science Intern</h3>
+          <div class="exp-org">Thiranex</div>
+          <ul class="exp-bullets">
+            <li>Performed data preprocessing, cleaning, and exploratory analysis on real-world datasets.</li>
+            <li>Built predictive machine learning models and visualized insights using Python.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="sec-head reveal">
+      <h2>On the<br>Board</h2>
+      <span class="num">05 — Achievements</span>
+    </div>
+    <div class="achv-strip reveal">
+      <div class="achv-chip"><div class="medal">2nd</div><div class="txt"><b>Figma Fest</b><span>Thiran 2026 — Sri Eshwar College of Engineering</span></div></div>
+      <div class="achv-chip"><div class="medal">2nd</div><div class="txt"><b>Masala Coding</b><span>Thiran 2026 — Sri Eshwar College of Engineering</span></div></div>
+      <div class="achv-chip"><div class="medal">2nd</div><div class="txt"><b>ForceCoders</b><span>Infinitum 2026 — PSG College of Technology</span></div></div>
+      <div class="achv-chip"><div class="medal">2nd</div><div class="txt"><b>Technical Debate</b><span>Competition</span></div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-sec">
+    <span class="eyebrow">06 — Get in touch</span>
+    <h2 style="margin-top:18px;">Let's build something<br><em>worth shipping.</em></h2>
+    <p class="hero-sub">Open to internships and full-time opportunities in AI, data science, and full-stack development. Reach out — I reply quickly.</p>
+    <div class="contact-links">
+      <a class="clink" href="mailto:727824TUAD112@skct.edu.in">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l9 7 9-7M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
+        727824TUAD112@skct.edu.in
+      </a>
+      <a class="clink" href="https://www.linkedin.com/in/krithika-balakrishnan-2a2029328/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 18.34V10H5.67v8.34h2.67zM7 8.75a1.55 1.55 0 100-3.1 1.55 1.55 0 000 3.1zM18.34 18.34v-4.6c0-2.46-1.31-3.6-3.06-3.6a2.64 2.64 0 00-2.39 1.31h-.04V10H10.2c.03.7 0 8.34 0 8.34h2.67v-4.66c0-.25.02-.5.09-.68.2-.5.65-1.02 1.42-1.02.99 0 1.4.76 1.4 1.86v4.5h2.56z"/></svg>
+        LinkedIn
+      </a>
+      <a class="clink" href="https://github.com/bkrithika06/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0022 12.19C22 6.58 17.52 2 12 2z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+
+  <footer>Designed &amp; built by Krithika B. — {{YEAR}}</footer>
+</div>
+
+<script>
+  document.getElementById('top') && (function(){
+    var f = document.querySelector('footer');
+    if(f) f.textContent = f.textContent.replace('{{YEAR}}', new Date().getFullYear());
+  })();
+
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+
+</body>
+</html>
