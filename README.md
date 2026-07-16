@@ -2,7 +2,7 @@
 
 A one-page personal portfolio built as a single, self-contained HTML file — no build tools, no dependencies, no framework. Just open it and it runs.
 
-**Live site:** _add your GitHub Pages link here once deployed_
+**Live site:** 
 `https://bkrithika06.github.io/portfolio/`
 
 ## About
